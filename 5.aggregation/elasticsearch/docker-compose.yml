@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  node01:
+    image: elasticsearch:7.3.0
+    environment:
+      - node.name=node01
+      - discovery.seed_hosts=node01
+      - cluster.initial_master_nodes=node01
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits: 
+      memlock:
+        soft: -1
+        hard: -1
+    hostname: node01
+    ports: 
+      - 9200:9200
+    volumes:
+      - node01data
+
+volumes:
+  node01data:
+    driver: local
+    
